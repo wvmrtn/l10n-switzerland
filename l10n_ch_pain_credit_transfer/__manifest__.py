@@ -15,6 +15,12 @@
         "account_banking_sepa_credit_transfer",
     ],
     'external_dependencies': {'python': ['openupgradelib']},
+    'data': [
+        'data/payment_type.xml',
+    ],
+    'demo': [
+        'demo/ct_demo.yml'
+    ],
     'installable': True,
     "pre_init_hook": "pre_init_hook"
 }
