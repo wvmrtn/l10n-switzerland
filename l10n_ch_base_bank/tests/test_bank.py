@@ -28,14 +28,7 @@ class TestBank(common.SavepointCase):
             'bic': 'ALSWCH21XXX',
             'clearing': '38815',
         })
-        cls.post_bank = cls.env['res.bank'].search(
-            [('bic', '=', 'POFICHBEXXX')])
-        if not cls.post_bank:
-            cls.post_bank = cls.env['res.bank'].create({
-                'name': 'PostFinance AG',
-                'bic': 'POFICHBEXXX',
-                'clearing': '09000',
-            })
+        cls.post_bank = cls.env.ref('l10n_ch_base_bank.bank_post')
 
     def new_form(self):
         form = Form(
