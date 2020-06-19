@@ -71,3 +71,13 @@ class AccountMoveLine(models.Model):
                 for mandate in bank.mandate_ids:
                     if mandate.state == 'valid':
                         return bank.id
+
+    @api.multi
+    def _prepare_payment_line_vals(self, payment_order):
+        vals = super()._prepare_payment_line_vals(payment_order)
+        if self.invoice_id:
+            if self.invoice_id.reference_type == 'none':
+                if 'out' in self.invoice_id.type:
+                    vals['communication'] = self.move_id.ref
+                    vals['communication'] = vals['communication'].replace(' ', '')
+        return vals
