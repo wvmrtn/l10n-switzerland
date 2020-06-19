@@ -80,18 +80,21 @@ class AccountMoveLine(models.Model):
         #         if 'out' in self.invoice_id.type:
         #             vals['communication'] = self.move_id.ref
         #             vals['communication'] = vals['communication'].replace(' ', '')
-        communication = self.move_id.ref or self.move_id.name
-        # change these default values if move line is linked to an invoice
-        if self.invoice_id:
-            if self.invoice_id.reference_type != 'none':
-                communication = self.invoice_id.reference
-            else:
-                if (
-                        self.invoice_id.type in ('in_invoice', 'in_refund') and
-                        self.invoice_id.reference):
-                    communication = self.invoice_id.reference
-                elif 'out' in self.invoice_id.type:
-                    # Force to only put invoice number here
-                    communication = self.move_id.ref
-        vals['communication'] = communication
+
+        # communication = self.move_id.ref or self.move_id.name
+        # # change these default values if move line is linked to an invoice
+        # if self.invoice_id:
+        #     if self.invoice_id.reference_type != 'none':
+        #         communication = self.invoice_id.reference
+        #     else:
+        #         if (
+        #                 self.invoice_id.type in ('in_invoice', 'in_refund') and
+        #                 self.invoice_id.reference):
+        #             communication = self.invoice_id.reference
+        #         elif 'out' in self.invoice_id.type:
+        #             # Force to only put invoice number here
+        #             communication = self.move_id.ref
+        # vals['communication'] = communication
+        # vals['communication'] = vals['communication'].replace(' ', '')
+
         return vals
