@@ -75,9 +75,7 @@ class AccountMoveLine(models.Model):
     @api.multi
     def _prepare_payment_line_vals(self, payment_order):
         vals = super()._prepare_payment_line_vals(payment_order)
-        if self.invoice_id:
-            if self.invoice_id.reference_type == 'none':
-                if 'out' in self.invoice_id.type:
-                    vals['communication'] = self.move_id.ref
-                    vals['communication'] = vals['communication'].replace(' ', '')
+        # LSV files need ISR reference in the communication field.
+        if payment_order.payment_method_id.pain_version == "pain.008.001.02.ch.03":
+            vals['communication'] = self.move_id.ref.replace(' ', '')
         return vals
